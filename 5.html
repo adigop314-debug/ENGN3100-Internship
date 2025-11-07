@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Networking · Matches</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#f7f9fb;--card:#fff;--ink:#0f172a;--muted:#64748b;--brand:#003366;--brand2:#006699;--accent:#ffcc00;--line:#e5e7eb;--radius:14px}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink)}
+    a{text-decoration:none;color:inherit}
+
+    header{background:linear-gradient(90deg,var(--brand),var(--brand2));color:#fff;padding:1.1rem 2rem;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+    header h1{margin:0;font-size:1.15rem;font-weight:800}
+    nav a{color:#fff;margin-left:1rem;opacity:.9}
+    nav a:hover{opacity:1}
+
+    .container{max-width:1200px;margin:0 auto;padding:2rem}
+
+    /* Hero */
+    .hero{display:flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.25rem}
+    .hero h2{margin:.2rem 0;font-size:1.4rem;color:var(--brand)}
+    .hero p{margin:.2rem 0;color:var(--muted)}
+
+    /* Layout */
+    .layout{display:grid;grid-template-columns:330px 1fr;gap:1.25rem;margin-top:1rem}
+    @media (max-width:1000px){.layout{grid-template-columns:1fr}}
+
+    /* Card */
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.1rem}
+    .section-title{margin:0 0 .5rem;font-size:1.05rem;color:var(--brand)}
+
+    /* Onboarding chips */
+    .chips{display:flex;flex-wrap:wrap;gap:.5rem}
+    .chip{padding:.45rem .7rem;border:1px solid var(--line);border-radius:999px;background:#f8fafc;font-size:.85rem;cursor:pointer}
+    .chip.active{background:var(--brand2);border-color:var(--brand2);color:#fff}
+
+    /* Filters */
+    .filters .row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+    .filters input, .filters select{width:100%;padding:.6rem;border:1px solid var(--line);border-radius:10px}
+    .filters .actions{display:flex;gap:.5rem;margin-top:.8rem}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;padding:.6rem .9rem;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:pointer}
+    .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--brand);font-weight:800}
+
+    /* Matches grid */
+    .matches{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    @media (max-width:1100px){.matches{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.matches{grid-template-columns:1fr}}
+    .match{display:flex;flex-direction:column;gap:.75rem;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;transition:transform .25s, box-shadow .25s}
+    .match:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,.08)}
+    .banner{height:110px;background:#dbeafe url('https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1400&auto=format&fit=crop') center/cover}
+    .body{padding:0 1rem 1rem}
+    .top{display:flex;align-items:center;gap:.8rem;margin-top:-28px}
+    .avatar{width:56px;height:56px;border-radius:50%;border:3px solid #fff;background:#c7d2fe url('https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=400&auto=format&fit=crop') center/cover}
+    .name{font-weight:800}
+    .role{color:var(--muted);font-size:.9rem}
+    .overlap{display:inline-flex;gap:.35rem;flex-wrap:wrap;margin:.4rem 0}
+    .pill{background:#f3f4f6;border:1px solid var(--line);border-radius:999px;padding:.25rem .55rem;font-size:.75rem;color:#334155}
+    .score{margin-left:auto;background:var(--accent);color:var(--brand);font-weight:900;border-radius:999px;padding:.2rem .5rem}
+
+    .actions{display:flex;gap:.5rem;margin-top:.6rem}
+    .actions .btn{flex:1}
+    .btn.icon{padding:.6rem}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;background:rgba(15,23,42,.6);display:none;align-items:center;justify-content:center;padding:1rem;z-index:20}
+    .dialog{max-width:560px;width:100%;background:#fff;border-radius:16px;border:1px solid var(--line);overflow:hidden}
+    .dialog header{background:#0b2740;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:.85rem 1rem}
+    .dialog header h3{margin:0;font-size:1rem}
+    .dialog .content{padding:1rem}
+    .dialog textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:12px;padding:.75rem}
+    .dialog .footer{display:flex;gap:.6rem;padding:1rem;border-top:1px solid var(--line);justify-content:flex-end}
+
+    footer{background:var(--brand);color:#fff;text-align:center;padding:1rem;margin-top:2rem}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Event & Conference Management Portal</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/events">Events</a>
+      <a href="/dashboard">My Dashboard</a>
+      <a href="#" aria-current="page" style="font-weight:700">Network</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero" aria-label="Networking intro">
+      <div>
+        <h2>Networking & Matchmaking</h2>
+        <p>Set your interests and discover attendees with the highest overlap. Send an intro or propose a time to meet.</p>
+      </div>
+      <button class="btn primary" id="refresh">Refresh matches</button>
+    </section>
+
+    <section class="layout">
+      <!-- Sidebar: profile & filters -->
+      <aside class="card">
+        <h3 class="section-title">Your profile focus</h3>
+        <p class="muted" style="margin-top:-.3rem">Pick a few topics you’d like to connect on.</p>
+        <div class="chips" id="topicChips" role="group" aria-label="Topic interests">
+          <span class="chip">AI/ML</span>
+          <span class="chip">Cloud</span>
+          <span class="chip">Data</span>
+          <span class="chip">EdTech</span>
+          <span class="chip">Healthcare</span>
+          <span class="chip">Sustainability</span>
+          <span class="chip">Startups</span>
+          <span class="chip">Product</span>
+          <span class="chip">UX</span>
+        </div>
+
+        <div class="card" style="margin-top:1rem">
+          <h4 class="section-title">Filters</h4>
+          <div class="filters">
+            <div class="row">
+              <select id="roleFilter" aria-label="Role filter">
+                <option value="">Any role</option>
+                <option>Engineer</option>
+                <option>Researcher</option>
+                <option>Educator</option>
+                <option>Founder</option>
+                <option>Product Manager</option>
+              </select>
+              <select id="formatFilter" aria-label="Format filter">
+                <option value="">Any format</option>
+                <option>On-site</option>
+                <option>Online</option>
+                <option>Hybrid</option>
+              </select>
+            </div>
+            <div class="actions">
+              <button class="btn" id="clearFilters">Clear</button>
+              <button class="btn primary" id="applyFilters">Apply</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Matches -->
+      <section aria-label="Suggested matches">
+        <div class="card" style="margin-bottom:1rem">
+          <h3 class="section-title">Suggested matches</h3>
+          <p class="muted">Based on your topics and sessions you’ve added to your agenda.</p>
+        </div>
+        <div class="matches" id="matches">
+          <!-- Cards rendered by JS -->
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <!-- Intro Modal -->
+  <div class="modal" id="introModal" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+    <div class="dialog">
+      <header>
+        <h3 id="introTitle">Send an intro</h3>
+        <button class="btn" id="closeIntro" aria-label="Close">✕</button>
+      </header>
+      <div class="content">
+        <div id="introTarget" class="muted" style="margin-bottom:.5rem"></div>
+        <textarea id="introMsg" placeholder="Hi! I noticed we both selected AI/ML and Cloud. I’ll be at the Day 1 keynote—would you like to connect after?"></textarea>
+      </div>
+      <div class="footer">
+        <button class="btn" id="cancelIntro">Cancel</button>
+        <button class="btn primary" id="sendIntro">Send intro</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Event & Conference Management Portal • Build meaningful connections
+  </footer>
+
+  <script>
+    // ----- Demo data -----
+    const seed = [
+      {name:'Alex Rivera', role:'Researcher', org:'SynthAI', format:'Hybrid', topics:['AI/ML','Ethics','Cloud'], banner:'https://images.unsplash.com/photo-1485217988980-11786ced9454?q=80&w=1400&auto=format&fit=crop', avatar:'https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=400&auto=format&fit=crop'},
+      {name:'Priya Shah', role:'Engineer', org:'CloudWorks', format:'On-site', topics:['Cloud','DevOps','Product'], banner:'https://images.unsplash.com/photo-1526498460520-4c246339dccb?q=80&w=1400&auto=format&fit=crop', avatar:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop'},
+      {name:'Daniel Lowe', role:'Educator', org:'ANU', format:'Hybrid', topics:['EdTech','AI/ML','Policy'], banner:'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=1400&auto=format&fit=crop', avatar:'https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=400&auto=format&fit=crop'},
+      {name:'Mina Park', role:'Product Manager', org:'Flowly', format:'Online', topics:['Product','UX','Startups'], banner:'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop', avatar:'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=400&auto=format&fit=crop'},
+      {name:'Ethan Zhao', role:'Engineer', org:'DataLoop', format:'On-site', topics:['Data','AI/ML','Cloud'], banner:'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1400&auto=format&fit=crop', avatar:'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=400&auto=format&fit=crop'},
+      {name:'Sofia Nguyen', role:'Founder', org:'CareLink', format:'Hybrid', topics:['Healthcare','AI/ML','Sustainability'], banner:'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1400&auto=format&fit=crop', avatar:'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=400&auto=format&fit=crop'}
+    ];
+
+    const userTopics = new Set();
+
+    // ----- Chips -----
+    const topicChips = document.getElementById('topicChips');
+    topicChips.addEventListener('click', e=>{
+      if(!e.target.classList.contains('chip')) return;
+      const t = e.target.textContent.trim();
+      e.target.classList.toggle('active');
+      if(e.target.classList.contains('active')) userTopics.add(t); else userTopics.delete(t);
+      render();
+    });
+
+    // ----- Filters -----
+    const roleFilter = document.getElementById('roleFilter');
+    const formatFilter = document.getElementById('formatFilter');
+    document.getElementById('applyFilters').addEventListener('click', render);
+    document.getElementById('clearFilters').addEventListener('click', ()=>{
+      roleFilter.value=''; formatFilter.value='';
+      Array.from(topicChips.querySelectorAll('.chip.active')).forEach(c=>c.classList.remove('active'));
+      userTopics.clear(); render();
+    });
+
+    document.getElementById('refresh').addEventListener('click', ()=>{
+      // simple shuffle
+      seed.sort(()=>Math.random()-.5); render();
+    });
+
+    // ----- Match rendering -----
+    const grid = document.getElementById('matches');
+    function overlap(a,b){
+      return a.filter(x=>b.includes(x));
+    }
+    function scoreFor(person){
+      const ov = overlap(person.topics, Array.from(userTopics));
+      return Math.min(100, 40 + ov.length*20 + (person.format==='On-site'?10:0)); // playful heuristic
+    }
+    function render(){
+      grid.innerHTML='';
+      const rf = roleFilter.value; const ff = formatFilter.value;
+      const list = seed.filter(p => (!rf||p.role===rf) && (!ff||p.format===ff));
+      list.forEach(p=>{
+        const sc = scoreFor(p);
+        const card = document.createElement('article');
+        card.className='match';
+        card.innerHTML = `
+          <div class="banner" style="background-image:url('${p.banner}')"></div>
+          <div class="body">
+            <div class="top">
+              <div class="avatar" style="background-image:url('${p.avatar}')"></div>
+              <div>
+                <div class="name">${p.name}</div>
+                <div class="role">${p.role} • ${p.org} • ${p.format}</div>
+              </div>
+              <div class="score" title="Match score">${sc}%</div>
+            </div>
+            <div class="overlap">${p.topics.slice(0,5).map(t=>`<span class='pill'>${t}</span>`).join('')}</div>
+            <div class="actions">
+              <button class="btn" data-act="intro" data-name="${p.name}">Send intro</button>
+              <button class="btn" data-act="meet" data-name="${p.name}">Propose time</button>
+              <button class="btn icon" data-act="skip" title="Skip">✕</button>
+            </div>
+          </div>`;
+        grid.appendChild(card);
+      });
+    }
+
+    // Actions (intro / schedule / skip)
+    grid.addEventListener('click', e=>{
+      const btn = e.target.closest('button'); if(!btn) return;
+      const act = btn.dataset.act; const name = btn.dataset.name;
+      if(act==='skip'){ btn.closest('.match').remove(); return; }
+      if(act==='intro'){ openIntro(name); return; }
+      if(act==='meet'){ alert('Demo: Open time picker modal here.'); return; }
+    });
+
+    // ----- Intro modal -----
+    const modal = document.getElementById('introModal');
+    const introTarget = document.getElementById('introTarget');
+    const introMsg = document.getElementById('introMsg');
+    function openIntro(name){ introTarget.textContent = `To: ${name}`; introMsg.value=''; modal.style.display='flex'; }
+    function closeIntro(){ modal.style.display='none'; }
+    document.getElementById('closeIntro').addEventListener('click', closeIntro);
+    document.getElementById('cancelIntro').addEventListener('click', closeIntro);
+    document.getElementById('sendIntro').addEventListener('click', ()=>{ alert('Intro sent (demo).'); closeIntro(); });
+
+    // Initial render
+    render();
+  </script>
+</body>
+</html>

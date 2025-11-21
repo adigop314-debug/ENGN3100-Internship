@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help & Support · Event & Conference Management Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f7f9fb;--card:#ffffff;--ink:#0f172a;--muted:#6b7280;
+      --brand:#003366;--brand-2:#006699;--accent:#ffcc00;--line:#e5e7eb;
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink)}
+    a{text-decoration:none;color:inherit}
+
+    header{
+      background:linear-gradient(90deg,var(--brand),var(--brand-2));
+      color:#fff;padding:1.1rem 2rem;display:flex;align-items:center;
+      justify-content:space-between;box-shadow:0 2px 6px rgba(0,0,0,.08)
+    }
+    header h1{margin:0;font-size:1.1rem;font-weight:800}
+    nav a{color:#fff;margin-left:1rem;opacity:.9}
+    nav a:hover{opacity:1}
+
+    .container{max-width:900px;margin:0 auto;padding:2rem 1.5rem}
+    h2{margin:0 0 .5rem;font-size:1.5rem;color:var(--brand)}
+    p.muted{color:var(--muted);margin:0 0 1.25rem}
+
+    .layout{display:grid;grid-template-columns:1.4fr 1fr;gap:1.25rem}
+    @media(max-width:900px){.layout{grid-template-columns:1fr}}
+
+    .card{
+      background:var(--card);border-radius:var(--radius);
+      border:1px solid var(--line);padding:1.15rem
+    }
+    .section-title{margin:0 0 .6rem;font-size:1.05rem;color:var(--brand)}
+
+    /* FAQ */
+    details{
+      border:1px solid var(--line);border-radius:12px;
+      padding:.75rem .9rem;background:#fff;margin-bottom:.6rem
+    }
+    summary{
+      cursor:pointer;font-weight:600;color:var(--brand);
+      list-style:none;display:flex;align-items:center;justify-content:space-between
+    }
+    summary::marker, summary::-webkit-details-marker{display:none}
+    summary span.icon{font-size:1.1rem;color:var(--muted)}
+    details[open] summary span.icon{transform:rotate(90deg)}
+    details p{margin:.35rem 0 0;color:var(--muted);font-size:.92rem}
+
+    /* Contact form */
+    label{display:block;font-size:.88rem;font-weight:600;margin:.55rem 0 .25rem}
+    input,textarea,select{
+      width:100%;padding:.7rem .75rem;border-radius:10px;
+      border:1px solid var(--line);font-size:.9rem
+    }
+    textarea{min-height:130px;resize:vertical}
+    .btn-primary{
+      display:inline-flex;align-items:center;justify-content:center;
+      margin-top:.75rem;padding:.7rem 1rem;border-radius:12px;font-weight:800;
+      background:var(--accent);color:var(--brand);border:0;cursor:pointer
+    }
+    .help-text{font-size:.8rem;color:var(--muted);margin-top:.2rem}
+
+    .quick-links{display:grid;gap:.4rem;font-size:.9rem;color:var(--muted);margin-top:.4rem}
+    .quick-links a{color:var(--brand-2);font-weight:600;font-size:.88rem}
+
+    footer{
+      background:var(--brand);color:#fff;text-align:center;
+      padding:1rem;margin-top:2rem;font-size:.9rem
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Event & Conference Management Portal</h1>
+    <nav>
+      <a href="FINAL_landing.html">Home</a>
+      <a href="FINAL_browse_events.html">Browse Events</a>
+      <a href="FINAL_upcoming_events.html">My Events</a>
+      <a href="FINAL_checkout.html">Checkout</a>
+      <a href="FINAL_contact.html" aria-current="page" style="font-weight:700">Help</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <header style="margin-bottom:1.5rem">
+      <h2>Help & support</h2>
+      <p class="muted">
+        Find quick answers to common questions about registrations, tickets, and networking.
+        If you’re still stuck, send us a message and we’ll get back to you.
+      </p>
+    </header>
+
+    <section class="layout">
+      <!-- FAQ -->
+      <article class="card" aria-label="Frequently asked questions">
+        <h3 class="section-title">Frequently asked questions</h3>
+
+        <details open>
+          <summary>
+            How do I change the name on my ticket?
+            <span class="icon">›</span>
+          </summary>
+          <p>
+            Go to <strong>My Tickets</strong>, select the event, and choose <em>Update attendee details</em>.
+            Some events lock updates 48 hours before they begin.
+          </p>
+        </details>
+
+        <details>
+          <summary>
+            I didn’t receive my confirmation email—what should I do?
+            <span class="icon">›</span>
+          </summary>
+          <p>
+            First, check your spam or junk folder. If it’s not there, use the same email address
+            to sign in and view your tickets. You can always download a PDF ticket directly from the portal.
+          </p>
+        </details>
+
+        <details>
+          <summary>
+            Can I get a refund or transfer my ticket?
+            <span class="icon">›</span>
+          </summary>
+          <p>
+            Refunds and transfers depend on the event organiser’s policy. On the event details page,
+            look for the <strong>Refund policy</strong> section. If transfers are allowed, you’ll see a
+            <em>Transfer ticket</em> button next to your registration.
+          </p>
+        </details>
+
+        <details>
+          <summary>
+            How do online / hybrid events work on the day?
+            <span class="icon">›</span>
+          </summary>
+          <p>
+            For online and hybrid events, we email a secure join link 24 hours before the event.
+            The same link is pinned to your <strong>My Tickets</strong> page under the event name.
+          </p>
+        </details>
+
+        <details>
+          <summary>
+            Is my payment and data secure?
+            <span class="icon">›</span>
+          </summary>
+          <p>
+            Payments are processed via a PCI-DSS compliant provider. We store only the information needed
+            to manage your registration and never share your details with third parties without consent.
+          </p>
+        </details>
+      </article>
+
+      <!-- Contact form -->
+      <aside class="card" aria-label="Contact support">
+        <h3 class="section-title">Contact support</h3>
+        <p class="muted" style="margin-top:-.1rem">
+          Can’t find what you need? Send us a short message.
+        </p>
+
+        <form>
+          <label for="topic">What do you need help with?</label>
+          <select id="topic" name="topic">
+            <option>Ticket or registration</option>
+            <option>Payment or invoice</option>
+            <option>Online access / livestream</option>
+            <option>Networking & messages</option>
+            <option>Something else</option>
+          </select>
+
+          <label for="email">Email address</label>
+          <input id="email" type="email" placeholder="you@example.com" required />
+          <div class="help-text">We’ll reply to this address.</div>
+
+          <label for="msg">Message</label>
+          <textarea id="msg" placeholder="Briefly describe what’s happening…"></textarea>
+
+          <button type="submit" class="btn-primary">Send message</button>
+          <div class="help-text">Typical response time: within 1–2 business days.</div>
+        </form>
+
+        <div class="quick-links" aria-label="Quick links">
+          <strong style="margin-top:1rem;font-size:.9rem;color:var(--ink)">Quick links</strong>
+          <a href="FINAL_upcoming_events.html">Go to My Tickets</a>
+          <a href="FINAL_browse_events.html">Browse events</a>
+          <a href="FINAL_contact.html">View privacy & data policy</a>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Event & Conference Management Portal • Need urgent help? Contact your event organiser directly.
+  </footer>
+</body>
+</html>

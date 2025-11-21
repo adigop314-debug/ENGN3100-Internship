@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register · Tech Summit 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#f7f9fb;--card:#ffffff;--ink:#111827;--muted:#6b7280;--brand:#003366;--brand-2:#006699;--accent:#ffcc00;--line:#e5e7eb;--radius:14px}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink)}
+    a{text-decoration:none;color:inherit}
+    header{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff;padding:1.1rem 2rem;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+    header h1{margin:0;font-size:1.1rem;font-weight:800}
+    nav a{color:#fff;margin-left:1rem;opacity:.9}
+    nav a:hover{opacity:1}
+
+    .container{max-width:1200px;margin:0 auto;padding:2rem}
+
+    /* Progress */
+    .progress{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1.25rem}
+    .step{display:flex;align-items:center;gap:.6rem;background:#fff;border:1px solid var(--line);border-radius:12px;padding:.6rem .8rem;color:var(--muted)}
+    .step.active{border-color:var(--brand-2);box-shadow:0 0 0 3px rgba(0,102,153,.08);color:var(--brand)}
+    .dot{width:24px;height:24px;display:grid;place-items:center;background:#f3f4f6;border-radius:999px;border:1px solid var(--line);font-weight:800}
+    .step.active .dot{背景:var(--accent);color:var(--brand);border-color:var(--accent)}
+
+    /* Layout */
+    .layout{display:grid;grid-template-columns:1.45fr .8fr;gap:1.25rem}
+    @media(max-width:980px){.layout{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.25rem}
+    .section-title{margin:0 0 .5rem;font-size:1.1rem;color:var(--brand)}
+    .muted{color:var(--muted)}
+
+    /* Ticket selector */
+    .tickets{display:grid;gap:.9rem}
+    .tier{display:grid;grid-template-columns:1fr auto auto;gap:1rem;align-items:center;border:1px dashed var(--line);border-radius:12px;padding:.9rem;background:#fcfdff}
+    @media(max-width:640px){.tier{grid-template-columns:1fr 1fr;grid-auto-rows:auto}}
+    .price{font-weight:900;color:var(--brand);font-size:1.1rem}
+    .qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+    .qty button{background:#f3f4f6;border:0;padding:.45rem .7rem;cursor:pointer;font-weight:900}
+    .qty input{width:48px;text-align:center;border:0;padding:.45rem .3rem}
+
+    .promo{display:flex;gap:.5rem;margin-top:.75rem}
+    .promo input{flex:1;border:1px solid var(--line);border-radius:10px;padding:.6rem}
+    .promo button{border:0;background:var(--brand-2);color:#fff;border-radius:10px;padding:.6rem 1rem;font-weight:700}
+
+    /* Forms */
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem}
+    @media(max-width:700px){.grid-2{grid-template-columns:1fr}}
+    label{display:block;font-weight:600;margin:.6rem 0 .3rem}
+    input,select{width:100%;padding:.7rem .75rem;border:1px solid var(--line);border-radius:10px}
+    .help{font-size:.85rem;color:var(--muted)}
+    .error{font-size:.85rem;color:#b91c1c;display:none}
+
+    /* Summary */
+    .summary .row{display:flex;justify-content:space-between;margin:.4rem 0;color:var(--muted)}
+    .summary .row.total{font-weight:900;color:var(--brand);font-size:1.05rem}
+    .btn-primary{display:block;text-align:center;background:var(--accent);color:var(--brand);padding:.85rem 1rem;border-radius:12px;font-weight:900;margin-top:1rem}
+    .terms{display:flex;align-items:flex-start;gap:.6rem;margin-top:.75rem}
+
+    /* Review */
+    .review-list{display:grid;gap:.6rem;color:var(--muted)}
+    .review-actions{display:flex;gap:.6rem;margin-top:.8rem}
+    .btn-outline{flex:1;text-align:center;border:1px solid var(--line);border-radius:10px;padding:.7rem;background:#fff}
+
+    /* Confirmation */
+    .confirm{display:none}
+    .ticket{border:2px dashed var(--line);border-radius:14px;padding:1rem;margin-top:1rem;background:linear-gradient(180deg,#fff,#fafcff)}
+    .ticket .code{font-size:1.6rem;font-weight:900;letter-spacing:1px}
+    .calendar{display:flex;gap:.5rem;margin-top:.75rem}
+    .calendar a{flex:1;background:#f3f4f6;border:1px solid var(--line);padding:.6rem;border-radius:10px;text-align:center}
+
+    footer{background:var(--brand);color:#fff;text-align:center;padding:1rem;margin-top:2rem}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Event & Conference Management Portal</h1>
+    <nav>
+      <a href="FINAL_landing.html">Home</a>
+      <a href="FINAL_browse_events.html">Browse Events</a>
+      <a href="FINAL_upcoming_events.html">My Events</a>
+      <a href="FINAL_checkout.html">Checkout</a>
+      <a href="FINAL_contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- Progress -->
+    <nav class="progress" aria-label="Checkout progress">
+      <div class="step active" data-step="1"><span class="dot">1</span><span>Tickets</span></div>
+      <div class="step" data-step="2"><span class="dot">2</span><span>Details</span></div>
+      <div class="step" data-step="3"><span class="dot">3</span><span>Review</span></div>
+      <div class="step" data-step="4"><span class="dot">4</span><span>Confirmation</span></div>
+    </nav>
+
+    <div class="layout">
+      <!-- Left: Flow panels -->
+      <section id="flow">
+        <!-- PANEL 1: Tickets -->
+        <article class="card panel" id="panel-1" aria-labelledby="tickets-title">
+          <h2 id="tickets-title" class="section-title">Select tickets</h2>
+          <p class="muted">Choose your ticket types and quantities. Prices are in AUD.</p>
+          <div class="tickets">
+            <div class="tier" data-id="early" data-name="Early-bird" data-price="149">
+              <div>
+                <strong>Early-bird</strong>
+                <div class="help">Limited release · Includes recordings</div>
+              </div>
+              <div class="price">$149</div>
+              <div class="qty" role="group" aria-label="Quantity selector for Early-bird">
+                <button type="button" class="dec">−</button>
+                <input type="number" min="0" value="0" aria-label="Quantity" />
+                <button type="button" class="inc">+</button>
+              </div>
+            </div>
+
+            <div class="tier" data-id="standard" data-name="Standard" data-price="199">
+              <div>
+                <strong>Standard</strong>
+                <div class="help">General access • All sessions</div>
+              </div>
+              <div class="price">$199</div>
+              <div class="qty" role="group" aria-label="Quantity selector for Standard">
+                <button type="button" class="dec">−</button>
+                <input type="number" min="0" value="1" aria-label="Quantity" />
+                <button type="button" class="inc">+</button>
+              </div>
+            </div>
+
+            <div class="tier" data-id="student" data-name="Student" data-price="79">
+              <div>
+                <strong>Student</strong>
+                <div class="help">With valid student email</div>
+              </div>
+              <div class="price">$79</div>
+              <div class="qty" role="group" aria-label="Quantity selector for Student">
+                <button type="button" class="dec">−</button>
+                <input type="number" min="0" value="0" aria-label="Quantity" />
+                <button type="button" class="inc">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="promo">
+            <input type="text" id="promo" placeholder="Promo code" aria-label="Promo code"/>
+            <button type="button" id="applyPromo">Apply</button>
+          </div>
+          <div class="review-actions" style="margin-top:1rem">
+            <button class="btn-outline" id="to-details">Continue</button>
+          </div>
+        </article>
+
+        <!-- PANEL 2: Details -->
+        <article class="card panel" id="panel-2" aria-labelledby="details-title" style="display:none">
+          <h2 id="details-title" class="section-title">Attendee details</h2>
+          <p class="muted">Provide contact information for your tickets.</p>
+          <div class="grid-2">
+            <div>
+              <label for="firstName">First name</label>
+              <input id="firstName" type="text" placeholder="Ada" required />
+              <div class="error" id="errFirst">Please enter a first name</div>
+            </div>
+            <div>
+              <label for="lastName">Last name</label>
+              <input id="lastName" type="text" placeholder="Lovelace" required />
+              <div class="error" id="errLast">Please enter a last name</div>
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" type="email" placeholder="you@example.com" required />
+              <div class="error" id="errEmail">Please enter a valid email</div>
+            </div>
+            <div>
+              <label for="org">Organisation</label>
+              <input id="org" type="text" placeholder="ANU / Company" />
+            </div>
+            <div>
+              <label for="role">Role</label>
+              <select id="role">
+                <option>Engineer</option>
+                <option>Student</option>
+                <option>Researcher</option>
+                <option>Educator</option>
+                <option>Product Manager</option>
+              </select>
+            </div>
+            <div>
+              <label for="diet">Dietary requirements</label>
+              <input id="diet" type="text" placeholder="Vegetarian, Gluten-free, etc." />
+            </div>
+          </div>
+
+          <label class="terms"><input type="checkbox" id="terms"/> <span>I agree to the <a href="#">Terms</a> and <a href="#">Code of Conduct</a>.</span></label>
+
+          <div class="review-actions">
+            <button class="btn-outline" id="back-to-tickets">Back</button>
+            <button class="btn-outline" id="to-review">Review order</button>
+          </div>
+        </article>
+
+        <!-- PANEL 3: Review -->
+        <article class="card panel" id="panel-3" aria-labelledby="review-title" style="display:none">
+          <h2 id="review-title" class="section-title">Review & confirm</h2>
+          <div class="review-list" id="reviewList">
+            <!-- populated by JS -->
+          </div>
+          <div class="review-actions">
+            <button class="btn-outline" id="back-to-details">Back</button>
+            <a class="btn-primary" href="#" id="confirm">Confirm registration</a>
+          </div>
+        </article>
+
+        <!-- PANEL 4: Confirmation -->
+        <article class="card panel confirm" id="panel-4" aria-labelledby="confirm-title">
+          <h2 id="confirm-title" class="section-title">You're in! 🎉</h2>
+          <p class="muted">A confirmation email has been sent to <span id="cEmail">you@example.com</span>.</p>
+          <div class="ticket">
+            <div class="help">Tech Summit 2026 • 12–13 Feb 2026 • ICC Sydney</div>
+            <div class="code" id="qr">TS-26-8X9K1</div>
+            <div class="calendar">
+              <a href="#">Google</a>
+              <a href="#">Apple</a>
+              <a href="#">ICS</a>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Right: Order summary -->
+      <aside class="card summary" aria-label="Order summary">
+        <h3 class="section-title">Order summary</h3>
+        <div id="summaryRows"></div>
+        <div class="row" id="promoRow" style="display:none"><span>Promo</span><span id="promoValue">−$0.00</span></div>
+        <div class="row"><span>GST (10%)</span><span id="gst">$0.00</span></div>
+        <div class="row total"><span>Total</span><span id="total">$0.00</span></div>
+        <a href="#" class="btn-primary" id="primaryCta">Continue</a>
+        <p class="help">Secure checkout • No payment collected in this demo</p>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Event & Conference Management Portal • Inclusive, engaging events
+  </footer>
+
+  <script>
+    // --- Simple front-end state (no backend) ---
+    const currency = n => `$${n.toFixed(2)}`;
+    const tiers = Array.from(document.querySelectorAll('.tier'));
+    const summaryRows = document.getElementById('summaryRows');
+    const gstEl = document.getElementById('gst');
+    const totalEl = document.getElementById('total');
+    const promoInput = document.getElementById('promo');
+    const promoRow = document.getElementById('promoRow');
+    const promoValue = document.getElementById('promoValue');
+    const primaryCta = document.getElementById('primaryCta');
+
+    let promo = null; // {code:'', amount: number}
+
+    function lineItems(){
+      return tiers.map(t => {
+        const qty = parseInt(t.querySelector('input').value||'0',10);
+        const name = t.dataset.name;
+        const price = parseFloat(t.dataset.price);
+        return {id:t.dataset.id,name,price,qty};
+      }).filter(x=>x.qty>0);
+    }
+
+    function recalc(){
+      const items = lineItems();
+      summaryRows.innerHTML = '';
+      let subtotal = 0;
+      items.forEach(it => {
+        const row = document.createElement('div');
+        row.className = 'row';
+        row.innerHTML = `<span>${it.name} × ${it.qty}</span><span>${currency(it.price*it.qty)}</span>`;
+        summaryRows.appendChild(row);
+        subtotal += it.price*it.qty;
+      });
+      let promoAmt = 0;
+      if(promo){
+        promoAmt = Math.min(subtotal*0.2, 40); // cap demo discount at $40
+        promoRow.style.display = 'flex';
+        promoValue.textContent = `−${currency(promoAmt)}`;
+      }else{
+        promoRow.style.display = 'none';
+      }
+      const taxable = Math.max(subtotal - promoAmt, 0);
+      const gst = taxable*0.10; // AU GST placeholder
+      const total = taxable + gst;
+      gstEl.textContent = currency(gst);
+      totalEl.textContent = currency(total);
+      primaryCta.textContent = items.length ? 'Continue' : 'Select tickets';
+      primaryCta.setAttribute('aria-disabled', items.length? 'false':'true');
+    }
+
+    // Quantity controls
+    tiers.forEach(t => {
+      const input = t.querySelector('input');
+      t.querySelector('.inc').addEventListener('click', ()=>{ input.value = (+input.value||0)+1; recalc(); });
+      t.querySelector('.dec').addEventListener('click', ()=>{ input.value = Math.max((+input.value||0)-1,0); recalc(); });
+      input.addEventListener('input', recalc);
+    });
+
+    // Promo handling (demo: codes "EARLY20" or "STUDENT10")
+    document.getElementById('applyPromo').addEventListener('click', ()=>{
+      const code = promoInput.value.trim().toUpperCase();
+      if(!code){ promo=null; recalc(); return; }
+      if(code==='EARLY20' || code==='STUDENT10'){
+        promo = {code, amount: 20};
+      }else{ promo = null; alert('Invalid promo code (demo). Try EARLY20).'); }
+      recalc();
+    });
+
+    // Step transitions
+    const toDetails = document.getElementById('to-details');
+    const backToTickets = document.getElementById('back-to-tickets');
+    const toReview = document.getElementById('to-review');
+    const backToDetails = document.getElementById('back-to-details');
+    const confirm = document.getElementById('confirm');
+
+    const panels = ['panel-1','panel-2','panel-3','panel-4'].map(id=>document.getElementById(id));
+    const steps = Array.from(document.querySelectorAll('.step'));
+    function setStep(n){
+      panels.forEach((p,i)=>p.style.display = i===n-1? 'block':'none');
+      steps.forEach((s,i)=>s.classList.toggle('active', i===n-1));
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function goDetails(){
+      if(lineItems().length===0){ alert('Please select at least one ticket.'); return; }
+      setStep(2);
+    }
+    function validateDetails(){
+      const first = document.getElementById('firstName');
+      const last = document.getElementById('lastName');
+      const email = document.getElementById('email');
+      const terms = document.getElementById('terms');
+      let ok = true;
+      const emailOk = /.+@.+\..+/.test(email.value);
+      document.getElementById('errFirst').style.display = first.value? 'none':'block';
+      document.getElementById('errLast').style.display = last.value? 'none':'block';
+      document.getElementById('errEmail').style.display = emailOk? 'none':'block';
+      ok = first.value && last.value && emailOk && terms.checked;
+      return ok;
+    }
+
+    function buildReview(){
+      const items = lineItems();
+      const list = document.getElementById('reviewList');
+      list.innerHTML = '';
+      const who = `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}`;
+      const email = document.getElementById('email').value;
+      const org = document.getElementById('org').value || '—';
+      const role = document.getElementById('role').value;
+      const diet = document.getElementById('diet').value || '—';
+      const dl = document.createElement('div');
+      dl.innerHTML = `<div><strong>Attendee</strong>: ${who} · ${email}</div>
+                      <div><strong>Organisation</strong>: ${org} · <strong>Role</strong>: ${role}</div>
+                      <div><strong>Dietary</strong>: ${diet}</div>`;
+      list.appendChild(dl);
+      const ul = document.createElement('ul');
+      ul.style.marginTop = '.5rem';
+      items.forEach(i=>{
+        const li = document.createElement('li');
+        li.textContent = `${i.name} × ${i.qty}`;
+        ul.appendChild(li);
+      });
+      list.appendChild(ul);
+    }
+
+    toDetails.addEventListener('click', goDetails);
+    primaryCta.addEventListener('click', e=>{e.preventDefault(); goDetails();});
+    backToTickets.addEventListener('click', ()=> setStep(1));
+
+    toReview.addEventListener('click', ()=>{
+      if(!validateDetails()){ alert('Please complete required fields and accept Terms.'); return; }
+      buildReview();
+      setStep(3);
+    });
+    backToDetails.addEventListener('click', ()=> setStep(2));
+
+    confirm.addEventListener('click', e=>{
+      e.preventDefault();
+      document.getElementById('cEmail').textContent = document.getElementById('email').value || 'you@example.com';
+      setStep(4);
+      document.getElementById('panel-4').style.display='block';
+    });
+
+    recalc();
+  </script>
+</body>
+</html>
